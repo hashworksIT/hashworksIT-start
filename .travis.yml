@@ -1,0 +1,32 @@
+language: node_js
+sudo: required
+cache:
+  directories:
+  - node_modules
+branches:
+  except:
+  - master
+node_js:
+- '6.1'
+before_install:
+- if [[ `npm -v` != 3* ]]; then npm i -g npm@3; fi
+- rvm install 2.1
+- rvm use 2.1
+- . $HOME/.nvm/nvm.sh && nvm install 6.1 && nvm use 6.1
+- gem install bundler
+- bundle check || bundle install
+before_script:
+  - npm install -g gulp
+  - ls
+  - pwd
+  - chmod +x ./_scripts/build.sh
+env:
+  global:
+  - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
+  - secure: thvseM5BZ4scj4nfbquJOygS0iGrA5O2UBAFdFJscxZiKC8g/+qjR2uC7L0bM1fcsWPK0Qkwi+3+isV4K+MRS2+DQjIhW7lj1wFDXq6ShSnN9DfOdpLYB3T91s/q78eUbkxsBRMi1DZV/fyvDzkQjHJBXvBrPtoKzAJTr1vNa8Phqc1Ys0pVhME40BWXAUFr0nMfqw84FEcQKpPNd5UYFw4d218F5P5bMPT0AdwDHZNkerJh0EvljhP/O271etFQmdy4Pc5CrTAviVRl/zawp4limoxzV+CzvfcjIeTnLV8RCzVELxDnabc/jGWF+AoPP9r+DDG5ZWKMKF1A9CCwPDrToQ1c7kUM3nNv45X9XRKfNLcdhSV3O/H1hO8eleEfSeRAHvrx/djpZ2XZLfC285nQ1jsi3yneLH0+VJQEy4fNqecffDEI4/KS9NrZVjcuxBC8+MAN5aAKrGpSrrNK2fV++v14EUf/fAQBoFjbKNegykLdxMAP91BjzJPJr/igLP9bOFNNYiBA5mQMo0svU5ZH40fOuBpz3d3dapzOs6e8FjjbSyTInywwns6PBoBqVPAmDTHt7+ByUD2waIW4sOr0wDPVETkVYtX7DHSqpKpcixaoWFD+ndVkUgHQXcVRRwI+W9xv0VfvrcdzWygnlXNaKjUu35ljBV9m8jMnWlg=
+  - secure: zxZ8867KCqzjXcedo3UQgq/IInmEkc4OgtoCHiAou9zLAbxh9l8DdbleWaMlGck+3uT6zpfRJbjGVBzFow7Hivp8WIulbYshi1IygKK/Yn7K67DkL0M0kvnaNX6Xmg5nZQqncdOWHKcwDfj7NkMhje48sMjT3M3EaCgmE1FeQLPsKgDBPkc/jVVpQaYdsBBSkVK+CuibPfQy6KbmwX/7Eh11AAcf4iRNtW/JDhulyQ40PBcgTbx8jztmaJOZYeNyQ1ROsDUjEpmII2fBnoMEoRh3q7OmYW0te55JK+smlRJ7E+8B5RBVe/yeGNu5YkoevAiE2OqRdMS7Bn5g77x9Hw9Cz47oIstlRrR/Yijj/AVOL2//cITNIepAw0D7rTIRA2l2ujzZi6z65TrHSx7A3AGlGYqzpZEpLvfOh70zhFL+llPNXosJ7rDYO9qWLGUxgoJOjxf8rTSCK6KlOtT78PDQshG+81hVP2vav5wfT4XY3BOlZbmQhcndSvh5UhBmC62DVZ+4NmF8rvTOJFudC4zgKKrtB4Q6sA2/kUdVt4Q+vkhbtcY0XaeiiQS3YV94UDqz0X+2azdZuVZoafBYRWFuWCnZNYvzF1Wrbhkq6Ht+IkT7feKIrQ7DrDRRcBYvndu8xiAt9n3dah9fLCQzM5EO7NOk4+54yzQ5Dok8H2M=
+
+script: ./_scripts/build.sh
+skip_cleanup: false
+on:
+  branch: source
